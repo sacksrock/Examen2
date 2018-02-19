@@ -71,6 +71,13 @@ class MainActivityEvents implements LoginFragmentListener, RegisterFragmentListe
     }
 
     @Override
+    public void loginFragmentNavButtonClicked() {
+        Intent intent = new Intent(mainActivity,Main2Activity.class);
+        mainActivity.startActivity(intent);
+        mainActivity.finish();
+    }
+
+    @Override
     public void registerFragmentBtnAceptarClicked(String sUser, String sPass) {
         com.utad.danieliglesia.examenpmdm_dint.DataHolder.instance.fireBaseAdmin.loginConEmailYPassword(sUser,sPass,mainActivity);
     }

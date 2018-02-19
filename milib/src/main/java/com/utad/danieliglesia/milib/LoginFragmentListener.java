@@ -12,6 +12,7 @@ import com.facebook.AccessToken;
 public interface LoginFragmentListener {
     public void loginFragmentLoginButtonClicked(String sUser, String sPass);
     public void loginFragmentRegisterButtonClicked();
+    public void loginFragmentNavButtonClicked();
     public void loginFragmentLoginFacebook( FragmentActivity fragmentActivity, AccessToken accessToken);
     public void cambiarPantalla();
 }

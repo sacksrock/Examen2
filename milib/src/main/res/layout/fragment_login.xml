@@ -66,6 +66,12 @@
             app:layout_constraintTop_toBottomOf="@+id/etpass"
             app:layout_constraintVertical_bias="0.247" />
 
+        <Button
+            android:id="@+id/btnNav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
             android:layout_width="wrap_content"

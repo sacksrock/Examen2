@@ -34,6 +34,7 @@ public class LoginFragment extends Fragment {
     public EditText etPass;
     public Button btnLogin;
     public Button btnRegister;
+    public Button btnNav;
     public LoginFragmentEvents events;
     public LoginFragmentListener listener;
     CallbackManager callbackManager;
@@ -61,6 +62,7 @@ public class LoginFragment extends Fragment {
         etUsername=v.findViewById(R.id.etusername);
         etPass=v.findViewById(R.id.etpass);
         btnLogin=v.findViewById(R.id.btnlogin);
+        btnNav=v.findViewById(R.id.btnNav);
         btnRegister=v.findViewById(R.id.btnregister);
         loginButton=v.findViewById(R.id.login_button);
 
@@ -71,6 +73,7 @@ public class LoginFragment extends Fragment {
         //asignacion de controlador de eventos a los botones
         btnLogin.setOnClickListener(events);
         btnRegister.setOnClickListener(events);
+        btnNav.setOnClickListener(events);
         loginButton.setOnClickListener(events);
 
         callbackManager = CallbackManager.Factory.create();
@@ -121,6 +124,9 @@ class LoginFragmentEvents implements View.OnClickListener{
         }
         else if(view.getId()==this.loginFragment.btnRegister.getId()){
             this.loginFragment.listener.loginFragmentRegisterButtonClicked();
+        }
+        else if(view.getId()==this.loginFragment.btnNav.getId()){
+            this.loginFragment.listener.loginFragmentNavButtonClicked();
         }
     }
 }
