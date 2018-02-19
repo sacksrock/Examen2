@@ -12,16 +12,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.google.firebase.auth.AuthCredential;
+
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
 
 import java.util.Arrays;
 
@@ -56,15 +55,17 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_login, container, false);
-        //Inicializar Facebook y del boton
         callbackManager = CallbackManager.Factory.create();
-        loginButton = v.findViewById(R.id.login_button);
-        loginButton.setReadPermissions(Arrays.asList("public_profile","email"));
         //asignacion de elementos
+
         etUsername=v.findViewById(R.id.etusername);
         etPass=v.findViewById(R.id.etpass);
         btnLogin=v.findViewById(R.id.btnlogin);
         btnRegister=v.findViewById(R.id.btnregister);
+        loginButton=v.findViewById(R.id.login_button);
+
+        //login_button.setReadPermissions("email");
+
         //inicializacion de events
         events = new LoginFragmentEvents(this);
         //asignacion de controlador de eventos a los botones
@@ -72,30 +73,36 @@ public class LoginFragment extends Fragment {
         btnRegister.setOnClickListener(events);
         loginButton.setOnClickListener(events);
 
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                                Log.v("Correcto","Metodo OnSuccess");
-                           }
-            @Override
-            public void onCancel() {
+        callbackManager = CallbackManager.Factory.create();
 
-                   }
-
-            @Override
-            public void onError(FacebookException exception) {
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        // App code
                     }
-            });
 
+                    @Override
+                    public void onCancel() {
+                        // App code
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        // App code
+                    }
+                });
 
         return v;
+
 
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+        listener.cambiarPantalla();
+
     }
 }
 class LoginFragmentEvents implements View.OnClickListener{

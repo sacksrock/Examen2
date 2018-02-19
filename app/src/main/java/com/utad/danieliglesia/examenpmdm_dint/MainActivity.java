@@ -6,7 +6,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.facebook.AccessToken;
 import com.google.android.gms.common.data.DataHolder;
+import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.database.DataSnapshot;
 import com.utad.danieliglesia.milib.LoginFragment;
 import com.utad.danieliglesia.milib.LoginFragmentListener;
@@ -32,10 +34,19 @@ public class MainActivity extends AppCompatActivity {
         loginFragment.setListener(mainActivityEvents);
         registerFragment.setListener(mainActivityEvents);
         com.utad.danieliglesia.examenpmdm_dint.DataHolder.instance.fireBaseAdmin.setListener(mainActivityEvents);
+
         FragmentTransaction transition = getSupportFragmentManager().beginTransaction();
         transition.show(loginFragment);
         transition.hide(registerFragment);
         transition.commit();
+
+        FirebaseCrash.report(new Exception("My first Android non-fatal error"));
+        FirebaseCrash.log("Activity created");
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        loginFragment.onActivityResult(requestCode, resultCode, data);
     }
 }
 
@@ -100,5 +111,15 @@ class MainActivityEvents implements LoginFragmentListener, RegisterFragmentListe
     @Override
     public void FireBaseAdmin_RamaDescargada(String rama, DataSnapshot dataSnapshot) {
 
+    }
+
+    public void cambiarPantalla(){
+        Intent intent = new Intent(mainActivity,SecondActivity.class);
+        mainActivity.startActivity(intent);
+        mainActivity.finish();
+    }
+    @Override
+    public void loginFragmentLoginFacebook(FragmentActivity fragmentActivity,AccessToken accessToken) {
+        com.utad.danieliglesia.examenpmdm_dint.DataHolder.instance.fireBaseAdmin.handleFacebookAccessToken(fragmentActivity,accessToken);
     }
 }
