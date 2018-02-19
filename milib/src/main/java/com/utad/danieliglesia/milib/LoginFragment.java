@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -40,6 +42,7 @@ public class LoginFragment extends Fragment {
     CallbackManager callbackManager;
     LoginButton loginButton;
 
+    Animation show_nav;
 
 
     public LoginFragment() {
@@ -75,7 +78,7 @@ public class LoginFragment extends Fragment {
         btnRegister.setOnClickListener(events);
         btnNav.setOnClickListener(events);
         loginButton.setOnClickListener(events);
-
+        show_nav= AnimationUtils.loadAnimation(getActivity(),R.anim.anim1_show);
         callbackManager = CallbackManager.Factory.create();
 
         LoginManager.getInstance().registerCallback(callbackManager,
