@@ -83,7 +83,6 @@ class MainActivityEvents implements LoginFragmentListener, RegisterFragmentListe
         else{
 
         }
-
     }
 
     @Override
